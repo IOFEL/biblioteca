@@ -3,17 +3,19 @@ package biblioteca;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import static java.time.LocalDate.of;
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
+
+@DisplayName("Una biblioteca")
+@ExtendWith(LibroResuelveParametro.class)
 class BibliotecaTest {
 
     Biblioteca biblioteca;
@@ -23,16 +25,13 @@ class BibliotecaTest {
     Libro cleanCode;
 
     @BeforeEach
-    void setUp() {
+    void setUp(Map<String, Libro> libros) {
+
         biblioteca = new Biblioteca();
-        effectiveJava = new Libro("Effective Java", "Joshua Bloch",
-                of(2008, Month.MAY, 8));
-        codeComplete = new Libro("Code Complete", "Steve McConnel",
-                of(2004, Month.JUNE, 9));
-        mythicalManMonth = new Libro("The Mythical Man-Month", "Frederick Phillips Brooks",
-                of(1975, Month.JANUARY, 1));
-        cleanCode = new Libro("Clean Code", "Robert C. Martin",
-                of(2008, Month.AUGUST, 1));
+        effectiveJava = libros.get("Effective Java");
+        codeComplete = libros.get("Code Complete");
+        mythicalManMonth = libros.get("The Mythical Man-Month");
+        cleanCode = libros.get("Clean Code");
     }
 
     @Test
